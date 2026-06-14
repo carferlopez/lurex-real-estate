@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUREX Real Estate | Extraordinary Luxury Homes</title>
+  <meta name="description" content="A boutique real estate agency specializing in the world's most exceptional properties and lifestyle experiences. Marbella, Mallorca, Ibiza, Barcelona.">
+  
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Cormorant Garamond for Serif headers, Outfit for modern UI -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="navbar-container">
+      <div class="nav-top-row">
+        <span class="nav-top-note">LUXURY REAL ESTATE</span>
+        <a href="#" class="logo-link" aria-label="LUREX Real Estate Home">
+          <div class="logo-container">
+            <span class="logo-main">LUREX</span>
+            <span class="logo-sub">REAL ESTATE</span>
+          </div>
+        </a>
+        
+        <div class="nav-cta">
+          <div class="language-switch" role="group" aria-label="Seleccionar idioma">
+            <button type="button" class="language-btn active" data-lang="es" aria-pressed="true">ES</button>
+            <span aria-hidden="true">|</span>
+            <button type="button" class="language-btn" data-lang="en" aria-pressed="false">EN</button>
+          </div>
+          <button class="btn btn-outline" id="open-viewing-btn">BOOK A VIEWING</button>
+          <!-- Mobile Menu Trigger -->
+          <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle Menu" aria-expanded="false">
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </button>
+        </div>
+      </div>
+
+      <nav class="nav-menu" aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li><a href="#properties" class="nav-item">PROPERTIES</a></li>
+          <li><a href="#destinations" class="nav-item">DESTINATIONS</a></li>
+          <li><a href="#services" class="nav-item">SERVICES</a></li>
+          <li class="nav-center-gap" aria-hidden="true"></li>
+          <li><a href="#about" class="nav-item">ABOUT</a></li>
+          <li><a href="#journal" class="nav-item">JOURNAL</a></li>
+          <li><a href="#contact" class="nav-item">CONTACT</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-bg">
+      <img src="assets/hero_villa.png" alt="Luxury Villa Marbella Sunset" class="hero-image" fetchpriority="high">
+      <div class="hero-overlay"></div>
+    </div>
+    
+    <div class="hero-content-wrapper">
+      <div class="hero-content">
+        <h1 class="hero-title">Extraordinary Homes, Curated with Precision</h1>
+        <p class="hero-subtitle">A boutique real estate agency specializing in the world's most exceptional properties and lifestyle experiences.</p>
+        <div class="hero-actions">
+          <a href="#properties" class="btn btn-filled">
+            DISCOVER PROPERTIES
+            <svg class="icon-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search/Filter Floating Bar -->
+    <div class="search-bar-wrapper">
+      <div class="search-bar-container">
+        <form class="search-form" id="search-properties-form">
+          <div class="filter-group">
+            <label for="filter-location" class="filter-label">LOCATION</label>
+            <div class="select-wrapper">
+              <select id="filter-location" name="location">
+                <option value="">Any Location</option>
+                <option value="marbella">Marbella, Spain</option>
+                <option value="mallorca">Mallorca, Spain</option>
+                <option value="ibiza">Ibiza, Spain</option>
+                <option value="barcelona">Barcelona, Spain</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="filter-group">
+            <label for="filter-type" class="filter-label">PROPERTY TYPE</label>
+            <div class="select-wrapper">
+              <select id="filter-type" name="type">
+                <option value="">Any Type</option>
+                <option value="villa">Luxury Villa</option>
+                <option value="penthouse">Penthouse</option>
+                <option value="finca">Traditional Finca</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="filter-group">
+            <label for="filter-price" class="filter-label">PRICE RANGE</label>
+            <div class="select-wrapper">
+              <select id="filter-price" name="price">
+                <option value="">Any Price</option>
+                <option value="0-5">Under €5,000,000</option>
+                <option value="5-8">€5,000,000 - €8,000,000</option>
+                <option value="8+">Over €8,000,000</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="filter-group">
+            <label for="filter-beds" class="filter-label">BEDS & BATHS</label>
+            <div class="select-wrapper">
+              <select id="filter-beds" name="beds">
+                <option value="">Any</option>
+                <option value="3">3+ Beds</option>
+                <option value="4">4+ Beds</option>
+                <option value="5">5+ Beds</option>
+              </select>
+            </div>
+          </div>
+          
+          <button type="submit" class="btn-search">SEARCH PROPERTIES</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Properties Section -->
+  <section class="section section-properties" id="properties">
+    <div class="container">
+      <div class="section-header">
+        <div class="header-titles">
+          <span class="section-tag font-accent">FEATURED PROPERTIES</span>
+          <h2 class="section-title">Handpicked. Exceptional. Yours.</h2>
+        </div>
+        <a href="#properties" class="section-action-link" id="view-all-link">
+          VIEW ALL PROPERTIES
+          <svg class="icon-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Properties Grid -->
+      <div class="properties-grid" id="properties-grid">
+        <!-- Rendered dynamically by Javascript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- The LUREX Difference Section -->
+  <section class="section section-difference" id="services">
+    <div class="container split-layout">
+      <div class="split-content-left reveal-on-scroll">
+        <span class="section-tag font-accent">THE LUREX DIFFERENCE</span>
+        <h2 class="section-title cormorant-title">More Than Properties.<br>We Curate Lifestyles.</h2>
+        <p class="section-text">
+          LUREX Real Estate is a boutique agency with a global perspective and a personal approach. We represent only the finest properties and work with discerning clients who value trust, discretion, and results. Every detail matters. Every home has a story.
+        </p>
+        <a href="#about" class="section-action-link font-accent">
+          LEARN MORE ABOUT US
+          <svg class="icon-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+      
+      <div class="split-image-right reveal-on-scroll">
+        <div class="image-wrapper shadow-premium">
+          <img src="assets/interior_console.png" alt="Boutique Luxury Interior Design" class="difference-img">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Destinations Section -->
+  <section class="section section-destinations" id="destinations">
+    <div class="container">
+      <div class="section-header">
+        <div class="header-titles">
+          <span class="section-tag font-accent">DESTINATIONS</span>
+          <h2 class="section-title">Iconic Places. Inspired Living.</h2>
+        </div>
+        <a href="#destinations" class="section-action-link">
+          EXPLORE ALL AREAS
+          <svg class="icon-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Destinations Grid -->
+      <div class="destinations-grid">
+        <!-- Marbella -->
+        <div class="destination-card reveal-on-scroll">
+          <div class="dest-bg">
+            <img src="assets/dest_marbella.png" alt="Marbella Coastal View" class="dest-img">
+            <div class="dest-overlay"></div>
+          </div>
+          <div class="dest-info">
+            <h3 class="dest-title">Marbella</h3>
+            <span class="dest-region">Costa del Sol</span>
+            <a href="#" class="dest-link">
+              VIEW AREA
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Mallorca -->
+        <div class="destination-card reveal-on-scroll">
+          <div class="dest-bg">
+            <img src="assets/dest_mallorca.png" alt="Mallorca Port Andratx" class="dest-img">
+            <div class="dest-overlay"></div>
+          </div>
+          <div class="dest-info">
+            <h3 class="dest-title">Mallorca</h3>
+            <span class="dest-region">Balearic Islands</span>
+            <a href="#" class="dest-link">
+              VIEW AREA
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Ibiza -->
+        <div class="destination-card reveal-on-scroll">
+          <div class="dest-bg">
+            <img src="assets/dest_ibiza.png" alt="Ibiza Es Vedra View" class="dest-img">
+            <div class="dest-overlay"></div>
+          </div>
+          <div class="dest-info">
+            <h3 class="dest-title">Ibiza</h3>
+            <span class="dest-region">Balearic Islands</span>
+            <a href="#" class="dest-link">
+              VIEW AREA
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Barcelona -->
+        <div class="destination-card reveal-on-scroll">
+          <div class="dest-bg">
+            <img src="assets/dest_barcelona.png" alt="Barcelona Skyline View" class="dest-img">
+            <div class="dest-overlay"></div>
+          </div>
+          <div class="dest-info">
+            <h3 class="dest-title">Barcelona</h3>
+            <span class="dest-region">Catalonia</span>
+            <a href="#" class="dest-link">
+              VIEW AREA
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Map Card (Styled SVG Mockup) -->
+        <div class="destination-map-card reveal-on-scroll">
+          <div class="map-card-container">
+            <img src="assets/dest_map.png" alt="LUREX Real Estate Spain Map Offices" class="map-img">
+            <div class="map-overlay">
+              <div class="map-marker" style="top: 80%; left: 35%;" data-tooltip="Marbella Office"></div>
+              <div class="map-marker" style="top: 60%; left: 75%;" data-tooltip="Mallorca Office"></div>
+              <div class="map-marker" style="top: 35%; left: 88%;" data-tooltip="Barcelona Office"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Advisors Section -->
+  <section class="section section-advisors" id="about">
+    <div class="container">
+      <div class="section-header">
+        <div class="header-titles">
+          <span class="section-tag font-accent">YOUR TRUSTED ADVISORS</span>
+          <h2 class="section-title">Dedicated to You</h2>
+        </div>
+        <a href="#about" class="section-action-link">
+          MEET THE TEAM
+          <svg class="icon-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Advisors Grid -->
+      <div class="advisors-grid">
+        <!-- Carmen Navarro -->
+        <article class="advisor-card reveal-on-scroll">
+          <div class="advisor-img-wrapper">
+            <img src="assets/advisor_carmen.jpeg" alt="Carmen Navarro, Founder & CEO" class="advisor-img">
+          </div>
+          <div class="advisor-info">
+            <h3 class="advisor-name">Carmen Navarro</h3>
+            <p class="advisor-role font-accent">FOUNDER & CEO</p>
+            <div class="advisor-socials">
+              <a href="#" aria-label="LinkedIn Profile" class="social-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+              <a href="mailto:carmen@lurex.com" aria-label="Email Carmen" class="social-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Miguel Ortega -->
+        <article class="advisor-card reveal-on-scroll">
+          <div class="advisor-img-wrapper">
+            <img src="assets/advisor_miguel.jpeg" alt="Miguel Ortega, Senior Advisor" class="advisor-img">
+          </div>
+          <div class="advisor-info">
+            <h3 class="advisor-name">Miguel Ortega</h3>
+            <p class="advisor-role font-accent">SENIOR ADVISOR</p>
+            <div class="advisor-socials">
+              <a href="#" aria-label="LinkedIn Profile" class="social-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+              <a href="mailto:miguel@lurex.com" aria-label="Email Miguel" class="social-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Lucía Ramos -->
+        <article class="advisor-card reveal-on-scroll">
+          <div class="advisor-img-wrapper">
+            <img src="assets/advisor_lucia.jpeg" alt="Lucía Ramos, Property Advisor" class="advisor-img">
+          </div>
+          <div class="advisor-info">
+            <h3 class="advisor-name">Lucía Ramos</h3>
+            <p class="advisor-role font-accent">PROPERTY ADVISOR</p>
+            <div class="advisor-socials">
+              <a href="#" aria-label="LinkedIn Profile" class="social-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+              <a href="mailto:lucia@lurex.com" aria-label="Email Lucía" class="social-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Daniel Herrera -->
+        <article class="advisor-card reveal-on-scroll">
+          <div class="advisor-img-wrapper">
+            <img src="assets/advisor_daniel.jpeg" alt="Daniel Herrera, Client Relations" class="advisor-img">
+          </div>
+          <div class="advisor-info">
+            <h3 class="advisor-name">Daniel Herrera</h3>
+            <p class="advisor-role font-accent">CLIENT RELATIONS</p>
+            <div class="advisor-socials">
+              <a href="#" aria-label="LinkedIn Profile" class="social-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+              <a href="mailto:daniel@lurex.com" aria-label="Email Daniel" class="social-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="section section-testimonials">
+    <div class="container text-center">
+      <div class="testimonial-quotes-icon">“</div>
+      
+      <div class="testimonial-slider">
+        <!-- Slides -->
+        <div class="testimonial-slides-container">
+          <div class="testimonial-slide active" data-index="0">
+            <blockquote class="testimonial-quote">
+              LUREX Real Estate transformed our search for a second home into an effortless and enjoyable experience. Their attention to detail and discretion are unmatched.
+            </blockquote>
+            <cite class="testimonial-author font-accent">ALEXANDRA & MICHAEL T. <span class="author-location">— LONDON, UNITED KINGDOM</span></cite>
+          </div>
+          
+          <div class="testimonial-slide" data-index="1">
+            <blockquote class="testimonial-quote">
+              The level of boutique service provided by Miguel and his team was outstanding. They negotiated an incredible off-market property in Mallorca for us. Truly professionals.
+            </blockquote>
+            <cite class="testimonial-author font-accent">DIETER & HELGA K. <span class="author-location">— MUNICH, GERMANY</span></cite>
+          </div>
+
+          <div class="testimonial-slide" data-index="2">
+            <blockquote class="testimonial-quote">
+              Discretion was our primary concern. LUREX managed the purchase of our penthouse with absolute secrecy and efficiency. Highly recommended for premium listings.
+            </blockquote>
+            <cite class="testimonial-author font-accent">SOPHIE CHEN <span class="author-location">— HONG KONG</span></cite>
+          </div>
+        </div>
+
+        <!-- Dot Indicators -->
+        <div class="testimonial-dots">
+          <button class="dot-btn active" data-slide="0" aria-label="Go to slide 1"></button>
+          <button class="dot-btn" data-slide="1" aria-label="Go to slide 2"></button>
+          <button class="dot-btn" data-slide="2" aria-label="Go to slide 3"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pre-footer CTA Section -->
+  <section class="section-pre-footer" id="contact">
+    <div class="pre-footer-split-left">
+      <img src="assets/hero_villa.png" alt="Luxury Villa Patio at Night" class="pre-footer-img">
+      <div class="pre-footer-overlay"></div>
+    </div>
+    
+    <div class="pre-footer-split-right">
+      <div class="pre-footer-content reveal-on-scroll">
+        <h2 class="pre-footer-title">Let's Find Your Extraordinary</h2>
+        <p class="pre-footer-text">
+          Whether you're looking to buy, sell, or simply explore your options, our team is here to help you every step of the way.
+        </p>
+        <button class="btn btn-outline" id="open-consultation-btn">SCHEDULE A PRIVATE CONSULTATION</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <!-- Footer Logo column -->
+      <div class="footer-col footer-logo-col">
+        <div class="logo-container">
+          <span class="logo-main text-white">LUREX</span>
+          <span class="logo-sub font-accent">REAL ESTATE</span>
+        </div>
+        <p class="footer-copyright">© 2026 LUREX Real Estate. All rights reserved.</p>
+      </div>
+      
+      <!-- Contact Info Column -->
+      <div class="footer-col">
+        <h4 class="footer-col-title font-accent">CONTACT</h4>
+        <p class="footer-contact-item"><a href="tel:+34951123456">+34 951 123 456</a></p>
+        <p class="footer-contact-item"><a href="mailto:hello@lurexrealestate.com">hello@lurexrealestate.com</a></p>
+        <address class="footer-address">
+          Calle de la Calesa 12,<br>
+          Marbella, Spain
+        </address>
+      </div>
+      
+      <!-- Navigation Links Column -->
+      <nav class="footer-col" aria-label="Footer Navigation">
+        <h4 class="footer-col-title font-accent">NAVIGATION</h4>
+        <ul class="footer-links">
+          <li><a href="#properties">Properties</a></li>
+          <li><a href="#destinations">Destinations</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#journal">Journal</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      
+      <!-- Follow Us Column -->
+      <div class="footer-col">
+        <h4 class="footer-col-title font-accent">FOLLOW US</h4>
+        <ul class="footer-links">
+          <li><a href="#" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="#" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        </ul>
+      </div>
+
+      <!-- Circular Seal Column -->
+      <div class="footer-col footer-seal-col">
+        <div class="circular-seal">
+          <svg viewBox="0 0 100 100" width="110" height="110" class="seal-svg">
+            <path id="seal-text-path" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none"></path>
+            <text class="seal-text">
+              <textPath href="#seal-text-path" startOffset="0%">
+                EXTRAORDINARY HOMES • CURATED WITH PRECISION • 
+              </textPath>
+            </text>
+          </svg>
+          <div class="seal-letter">L</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Legal Row -->
+    <div class="footer-bottom-container">
+      <div class="container footer-bottom-row">
+        <ul class="footer-bottom-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Cookies Policy</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification System -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- NATIVE DIALOGS -->
+
+  <!-- Property Detail Modal -->
+  <!-- Closedby="any" handles clicking the backdrop, close requests (Esc key), and close() dynamically -->
+  <dialog id="property-detail-modal" class="premium-modal modal-large" closedby="any" aria-labelledby="modal-prop-title">
+    <div class="modal-wrapper">
+      <button class="modal-close-btn" aria-label="Cerrar detalles de la propiedad">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      
+      <div class="modal-body-grid">
+        <div class="modal-image-gallery">
+          <img src="" id="modal-prop-img" alt="Property Image" class="modal-gallery-main-img">
+        </div>
+        
+        <div class="modal-info-panel">
+          <div class="modal-header-block">
+            <span class="modal-prop-price font-accent" id="modal-prop-price"></span>
+            <h2 class="modal-prop-title" id="modal-prop-title"></h2>
+            <p class="modal-prop-location" id="modal-prop-location"></p>
+          </div>
+          
+          <div class="modal-specs-row">
+            <div class="spec-item">
+              <span class="spec-label">BEDS</span>
+              <span class="spec-val" id="modal-prop-beds"></span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">BATHS</span>
+              <span class="spec-val" id="modal-prop-baths"></span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">BUILD SIZE</span>
+              <span class="spec-val" id="modal-prop-size"></span>
+            </div>
+          </div>
+          
+          <div class="modal-description-block">
+            <h4 class="font-accent block-title">THE RESIDENCE</h4>
+            <p class="modal-prop-description" id="modal-prop-description"></p>
+          </div>
+
+          <div class="modal-contact-block">
+            <h4 class="font-accent block-title">REQUEST INFORMATION</h4>
+            <form class="modal-contact-form" id="property-inquiry-form">
+              <input type="hidden" name="property_name" id="inquiry-property-name">
+              <div class="form-row">
+                <input type="text" name="name" placeholder="Your Name" required class="form-input">
+                <input type="email" name="email" placeholder="Your Email" required class="form-input">
+              </div>
+              <textarea name="message" placeholder="I would like to inquire about this property..." rows="3" required class="form-textarea"></textarea>
+              <button type="submit" class="btn btn-filled btn-full">SEND INQUIRY</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Viewing Booking / Consultation Modal -->
+  <dialog id="viewing-booking-modal" class="premium-modal modal-small" closedby="any" aria-labelledby="modal-booking-title">
+    <div class="modal-wrapper">
+      <button class="modal-close-btn" aria-label="Cerrar reserva">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      
+      <div class="modal-content-centered">
+        <div class="logo-container text-center mb-1">
+          <span class="logo-main">LUREX</span>
+          <span class="logo-sub font-accent">REAL ESTATE</span>
+        </div>
+        
+        <h2 class="modal-title font-serif text-center" id="modal-booking-title">Schedule a Consultation</h2>
+        <p class="modal-subtitle text-center">Please fill out the form below. A dedicated advisor will reach out to you within 24 hours.</p>
+        
+        <form class="booking-form" id="consultation-form">
+          <div class="form-field">
+            <label for="booking-name" class="form-label">FULL NAME</label>
+            <input type="text" id="booking-name" name="name" required placeholder="John Doe" class="form-input">
+          </div>
+          
+          <div class="form-field">
+            <label for="booking-email" class="form-label">EMAIL ADDRESS</label>
+            <input type="email" id="booking-email" name="email" required placeholder="john@example.com" class="form-input">
+          </div>
+          
+          <div class="form-field">
+            <label for="booking-phone" class="form-label">PHONE NUMBER</label>
+            <input type="tel" id="booking-phone" name="phone" placeholder="+34 600 000 000" class="form-input">
+          </div>
+
+          <div class="form-field">
+            <label for="booking-date" class="form-label">PREFERRED DATE</label>
+            <input type="date" id="booking-date" name="preferred_date" class="form-input">
+          </div>
+
+          <div class="form-field">
+            <label for="booking-service" class="form-label">INTERESTED IN</label>
+            <select id="booking-service" name="service" class="form-input select-styled">
+              <option value="buy">Buying a Luxury Property</option>
+              <option value="sell">Selling a Premium Listing</option>
+              <option value="consultation">General Consultation & Portfolio Review</option>
+            </select>
+          </div>
+          
+          <button type="submit" class="btn btn-filled btn-full mt-1">REQUEST APPOINTMENT</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Client-side script -->
+  <script src="index.js"></script>
+</body>
+</html>

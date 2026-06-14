@@ -1,0 +1,12 @@
+{
+  "name": "lurex-real-estate",
+  "version": "1.0.0",
+  "description": "Replica de la web de LUREX Real Estate",
+  "main": "index.html",
+  "scripts": {
+    "dev": "browser-sync start --server --files \"index.html, index.css, index.js\" --port 3000"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.3"
+  }
+}
