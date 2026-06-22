@@ -223,7 +223,9 @@ const i18n = {
     dosVidasClose: "Toca el sol o la luna. Vívelas las dos.",
     dosVidasToggleAriaDay: "Cambiar a modo noche",
     dosVidasToggleAriaNight: "Cambiar a modo día",
-    bothHours: "Disponible en día y noche"
+    bothHours: "Disponible en día y noche",
+    imgToggleAriaDay: "Ver de noche",
+    imgToggleAriaNight: "Ver de día"
   },
   en: {
     documentTitle: "LUREX Real Estate | Extraordinary Luxury Homes",
@@ -356,7 +358,9 @@ const i18n = {
     dosVidasClose: "Tap the sun or the moon. Live them both.",
     dosVidasToggleAriaDay: "Switch to night mode",
     dosVidasToggleAriaNight: "Switch to day mode",
-    bothHours: "Shown by day & night"
+    bothHours: "Shown by day & night",
+    imgToggleAriaDay: "View at night",
+    imgToggleAriaNight: "View by day"
   }
 };
 
@@ -459,7 +463,6 @@ function syncLanguageButtons() {
 
 function applyStaticTranslations() {
   setMetaLanguage(currentLang);
-  setText(".nav-top-note", "navTopNote");
   setText('a[href="#properties"].nav-item', "navProperties");
   setText('a[href="#destinations"].nav-item', "navDestinations");
   setText('a[href="#services"].nav-item', "navServices");
@@ -624,32 +627,14 @@ function getFilteredProperties() {
 /* ==========================================================================
    COPY DEPENDIENTE DEL TEMA — hero title/subtitle cambia con día/noche
    ========================================================================== */
-function applyThemeCopy(animate) {
-  const theme = document.documentElement.getAttribute('data-theme') || 'day';
-  const isNight = theme === 'night';
+function applyThemeCopy() {
   const titleEl = document.querySelector('.hero-title');
   const subtitleEl = document.querySelector('.hero-subtitle');
-  if (!titleEl || !subtitleEl) return;
+  if (titleEl) titleEl.textContent = t('heroTitleDay');
+  if (subtitleEl) subtitleEl.textContent = t('heroSubtitleDay');
 
-  function setHeroCopy() {
-    titleEl.textContent = t(isNight ? 'heroTitleNight' : 'heroTitleDay');
-    subtitleEl.textContent = t(isNight ? 'heroSubtitleNight' : 'heroSubtitleDay');
-  }
-
-  if (animate) {
-    // Fundido de salida; cambia el texto cuando está invisible; fundido de entrada
-    titleEl.style.opacity = '0';
-    subtitleEl.style.opacity = '0';
-    setTimeout(() => {
-      setHeroCopy();
-      titleEl.style.opacity = '';
-      subtitleEl.style.opacity = '';
-    }, 280);
-  } else {
-    setHeroCopy();
-  }
-
-  // Actualiza aria-label del botón Dos Vidas según el tema resultante
+  // Actualiza aria-label del botón Dos Vidas según el tema activo
+  const isNight = document.documentElement.getAttribute('data-theme') === 'night';
   const dvBtn = document.getElementById('dos-vidas-toggle-btn');
   if (dvBtn) {
     dvBtn.setAttribute('aria-label', t(isNight ? 'dosVidasToggleAriaNight' : 'dosVidasToggleAriaDay'));
@@ -691,6 +676,10 @@ function initTheme() {
     updateToggleState(next);
     applyThemeCopy(true);
     updateThemeClock();
+    // Actualiza el icono solo de las cards que siguen el tema global (sin override)
+    document.querySelectorAll('.property-card:not([data-image-mode]) .btn-img-toggle').forEach(imgBtn => {
+      updateCardToggleBtn(imgBtn, next);
+    });
   });
 
   // Botón de la sección Dos Vidas — delega al toggle principal sin duplicar lógica
@@ -809,6 +798,12 @@ function renderProperties(properties) {
     // Stagger entry effect on load if browser-sync/initial loading is done
     card.style.transitionDelay = `${idx * 0.1}s`;
 
+    // Restora el modo de imagen guardado por el usuario para esta card
+    const savedMode = cardImageModes.get(prop.id);
+    if (savedMode) card.setAttribute('data-image-mode', savedMode);
+    const initMode = savedMode || document.documentElement.getAttribute('data-theme') || 'day';
+    const initIsNight = initMode === 'night';
+
     card.innerHTML = `
       <div class="property-img-wrapper">
         <div class="scene-img-wrap">
@@ -817,6 +812,23 @@ function renderProperties(properties) {
           <img src="assets/assets-noche/${prop.imgBase}_nch.png" alt="${propertyText(prop, "title")}"
                class="scene-layer scene-night" loading="lazy" onerror="this.style.opacity='0'">
         </div>
+        <button class="btn-img-toggle" type="button"
+                aria-label="${t(initIsNight ? 'imgToggleAriaNight' : 'imgToggleAriaDay')}">
+          <svg class="icon-img-sun"${initIsNight ? ' style="display:none"' : ''} width="12" height="12"
+               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-img-moon"${initIsNight ? '' : ' style="display:none"'} width="12" height="12"
+               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
         <button class="btn-favorite ${isFav ? 'active' : ''}" aria-label="${t("favoriteAria")}" data-fav-id="${prop.id}">
           <svg viewBox="0 0 24 24">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
@@ -860,10 +872,7 @@ function renderProperties(properties) {
 
     // Hook card click events
     card.addEventListener("click", (e) => {
-      // Don't open modal if heart icon or its children were clicked
-      if (e.target.closest(".btn-favorite")) {
-        return;
-      }
+      if (e.target.closest(".btn-favorite") || e.target.closest(".btn-img-toggle")) return;
       openPropertyModal(prop);
     });
 
@@ -872,6 +881,18 @@ function renderProperties(properties) {
     favBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       toggleFavorite(prop.id, favBtn);
+    });
+
+    // Hook per-card image toggle
+    const imgToggleBtn = card.querySelector(".btn-img-toggle");
+    imgToggleBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const currentMode = card.getAttribute('data-image-mode') ||
+                          document.documentElement.getAttribute('data-theme') || 'day';
+      const nextMode = currentMode === 'night' ? 'day' : 'night';
+      card.setAttribute('data-image-mode', nextMode);
+      cardImageModes.set(prop.id, nextMode);
+      updateCardToggleBtn(imgToggleBtn, nextMode);
     });
 
     grid.appendChild(card);
@@ -976,6 +997,18 @@ function initModals() {
     e.target.reset();
     showToast(t("consultationSent"));
   });
+}
+
+// Persistencia del modo de imagen por card, independiente del tema global
+const cardImageModes = new Map();
+
+function updateCardToggleBtn(btn, mode) {
+  const isNight = mode === 'night';
+  const sunIcon = btn.querySelector('.icon-img-sun');
+  const moonIcon = btn.querySelector('.icon-img-moon');
+  if (sunIcon) sunIcon.style.display = isNight ? 'none' : '';
+  if (moonIcon) moonIcon.style.display = isNight ? '' : 'none';
+  btn.setAttribute('aria-label', t(isNight ? 'imgToggleAriaNight' : 'imgToggleAriaDay'));
 }
 
 let activeProperty = null;
