@@ -223,6 +223,8 @@ const i18n = {
     dosVidasClose: "Toca el sol o la luna. Vívelas las dos.",
     dosVidasToggleAriaDay: "Cambiar a modo noche",
     dosVidasToggleAriaNight: "Cambiar a modo día",
+    dvBtnAriaDay: "Ver en la hora dorada",
+    dvBtnAriaNight: "Ver en la hora azul",
     bothHours: "Disponible en día y noche",
     imgToggleAriaDay: "Ver de noche",
     imgToggleAriaNight: "Ver de día"
@@ -358,6 +360,8 @@ const i18n = {
     dosVidasClose: "Tap the sun or the moon. Live them both.",
     dosVidasToggleAriaDay: "Switch to night mode",
     dosVidasToggleAriaNight: "Switch to day mode",
+    dvBtnAriaDay: "See in the golden hour",
+    dvBtnAriaNight: "See in the blue hour",
     bothHours: "Shown by day & night",
     imgToggleAriaDay: "View at night",
     imgToggleAriaNight: "View by day"
@@ -579,6 +583,10 @@ function applyStaticTranslations() {
   setText('#dv-night-label', 'dosVidasNightLabel');
   setText('#dv-night-text', 'dosVidasNightText');
   setText('#dv-close-text', 'dosVidasClose');
+  const dvBtnDayEl = document.getElementById('dv-btn-day');
+  if (dvBtnDayEl) dvBtnDayEl.setAttribute('aria-label', t('dvBtnAriaDay'));
+  const dvBtnNightEl = document.getElementById('dv-btn-night');
+  if (dvBtnNightEl) dvBtnNightEl.setAttribute('aria-label', t('dvBtnAriaNight'));
   // Copy y reloj dependientes del tema activo
   applyThemeCopy(false);
   updateThemeClock();
@@ -682,10 +690,22 @@ function initTheme() {
     });
   });
 
-  // Botón de la sección Dos Vidas — delega al toggle principal sin duplicar lógica
+  // Botón CTA de Dos Vidas — alterna el tema
   const dvBtn = document.getElementById('dos-vidas-toggle-btn');
-  if (dvBtn) {
-    dvBtn.addEventListener('click', () => btn.click());
+  if (dvBtn) dvBtn.addEventListener('click', () => btn.click());
+
+  // Botones de hora directa — activan el modo concreto sin toggle
+  const dvBtnDay = document.getElementById('dv-btn-day');
+  if (dvBtnDay) {
+    dvBtnDay.addEventListener('click', () => {
+      if (html.getAttribute('data-theme') !== 'day') btn.click();
+    });
+  }
+  const dvBtnNight = document.getElementById('dv-btn-night');
+  if (dvBtnNight) {
+    dvBtnNight.addEventListener('click', () => {
+      if (html.getAttribute('data-theme') !== 'night') btn.click();
+    });
   }
 }
 

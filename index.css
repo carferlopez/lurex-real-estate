@@ -2181,6 +2181,48 @@ body,
   opacity: 0.36;
 }
 
+.dos-vidas-hour-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 24px;
+  padding: 0;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--gold);
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.dos-vidas-hour-btn:hover {
+  background: var(--gold);
+  color: var(--paper);
+  transform: scale(1.08);
+}
+
+.dos-vidas-hour-btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.dos-vidas-hour-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+[data-theme="night"] .dos-vidas-hour-btn {
+  border-color: rgba(183, 161, 113, 0.55);
+  color: rgba(183, 161, 113, 0.85);
+}
+
+[data-theme="night"] .dos-vidas-hour-btn:hover {
+  background: rgba(183, 161, 113, 0.18);
+  color: var(--gold);
+}
+
 .dos-vidas-col-label {
   display: block;
   color: var(--gold);
