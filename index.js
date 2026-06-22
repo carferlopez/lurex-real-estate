@@ -814,7 +814,7 @@ function renderProperties(properties) {
         </div>
         <button class="btn-img-toggle" type="button"
                 aria-label="${t(initIsNight ? 'imgToggleAriaNight' : 'imgToggleAriaDay')}">
-          <svg class="icon-img-sun"${initIsNight ? ' style="display:none"' : ''} width="12" height="12"
+          <svg class="icon-img-sun"${initIsNight ? '' : ' style="display:none"'} width="12" height="12"
                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="5"></circle>
@@ -823,7 +823,7 @@ function renderProperties(properties) {
             <line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line>
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
           </svg>
-          <svg class="icon-img-moon"${initIsNight ? '' : ' style="display:none"'} width="12" height="12"
+          <svg class="icon-img-moon"${initIsNight ? ' style="display:none"' : ''} width="12" height="12"
                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -1006,8 +1006,9 @@ function updateCardToggleBtn(btn, mode) {
   const isNight = mode === 'night';
   const sunIcon = btn.querySelector('.icon-img-sun');
   const moonIcon = btn.querySelector('.icon-img-moon');
-  if (sunIcon) sunIcon.style.display = isNight ? 'none' : '';
-  if (moonIcon) moonIcon.style.display = isNight ? '' : 'none';
+  // Muestra el icono del modo OPUESTO: invita a descubrir la otra hora
+  if (sunIcon) sunIcon.style.display = isNight ? '' : 'none';
+  if (moonIcon) moonIcon.style.display = isNight ? 'none' : '';
   btn.setAttribute('aria-label', t(isNight ? 'imgToggleAriaNight' : 'imgToggleAriaDay'));
 }
 
