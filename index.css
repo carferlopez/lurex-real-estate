@@ -604,7 +604,8 @@ a:hover .icon-arrow,
   transition: transform 0.8s ease;
 }
 
-.property-card:hover .property-img {
+.property-card:hover .property-img,
+.property-card:hover .scene-layer {
   transform: scale(1.045);
 }
 
@@ -787,7 +788,8 @@ a:hover .icon-arrow,
   transition: transform 0.9s ease;
 }
 
-.destination-card:hover .dest-img {
+.destination-card:hover .dest-img,
+.destination-card:hover .scene-layer {
   transform: scale(1.045);
 }
 
@@ -921,7 +923,7 @@ a:hover .icon-arrow,
   width: 360px;
   height: 100%;
   opacity: 0.22;
-  background: url("assets/dest_marbella.png") center / cover;
+  background: url("assets/assets-dia/mrb_dia.png") center / cover;
   filter: grayscale(1);
 }
 
@@ -1627,4 +1629,444 @@ a:hover .icon-arrow,
   .modal-specs-row {
     grid-template-columns: 1fr;
   }
+}
+
+/* ==========================================================================
+   SCENE IMAGE CROSSFADE (día / noche)
+   ========================================================================== */
+
+/* Contenedor absoluto que rellena su padre posicionado (hero-bg, dest-bg, pre-footer-split-left) */
+.scene-img-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+/* Para contenedores no absolutos: .property-img-wrapper, .image-wrapper y .modal-image-gallery */
+.property-img-wrapper > .scene-img-wrap,
+.image-wrapper > .scene-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* El modal necesita posición en su contenedor de columna de grid */
+.modal-image-gallery {
+  position: relative;
+  min-height: 620px;
+}
+
+.modal-image-gallery > .scene-img-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+/* Cada capa de imagen se superpone y rellena su contenedor */
+.scene-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 1s ease;
+}
+
+/* Opacidad por tema: día encima, noche oculta; se invierte con data-theme="night" */
+.scene-day  { opacity: 1; }
+.scene-night { opacity: 0; }
+
+[data-theme="night"] .scene-day  { opacity: 0; }
+[data-theme="night"] .scene-night { opacity: 1; }
+
+/* Encuadres específicos heredados de las imágenes originales */
+.hero-bg .scene-layer             { object-position: center top; }
+.pre-footer-split-left .scene-layer { object-position: center bottom; }
+
+/* Las destination cards necesitan combinar la transición de zoom con la de opacidad */
+.destination-card .scene-layer {
+  transition: opacity 1s ease, transform 0.9s ease;
+}
+
+/* Las property cards combinan zoom y opacidad */
+.property-img-wrapper .scene-layer {
+  transition: opacity 1s ease, transform 0.8s ease;
+}
+
+/* ==========================================================================
+   TOGGLE DÍA / NOCHE
+   ========================================================================== */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border: 0;
+  background: transparent;
+  color: rgba(21, 23, 22, 0.48);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--ink);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.toggle-track {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  background: rgba(75, 74, 47, 0.18);
+  border: 1px solid rgba(75, 74, 47, 0.32);
+  flex-shrink: 0;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.toggle-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  transition: transform 0.4s ease;
+}
+
+.toggle-icon {
+  flex-shrink: 0;
+  transition: opacity 0.4s ease;
+}
+
+.icon-sun  { opacity: 0.9; }
+.icon-moon { opacity: 0.35; }
+
+/* Estado noche: knob desplazado + iconos invertidos */
+[data-theme="night"] .toggle-knob  { transform: translateX(16px); }
+[data-theme="night"] .toggle-track {
+  background: rgba(183, 161, 113, 0.22);
+  border-color: rgba(183, 161, 113, 0.48);
+}
+[data-theme="night"] .icon-sun  { opacity: 0.35; }
+[data-theme="night"] .icon-moon { opacity: 0.9; }
+[data-theme="night"] .theme-toggle { color: rgba(236, 231, 221, 0.48); }
+[data-theme="night"] .theme-toggle:hover { color: var(--ink); }
+
+/* ==========================================================================
+   TEMA NOCHE — variables globales
+   ========================================================================== */
+
+[data-theme="night"] {
+  --ink:      #ece7dd;
+  --ink-soft: rgba(236, 231, 221, 0.84);
+  --paper:    #0d0f0c;
+  --sand:     #161814;
+  --line:     rgba(255, 255, 255, 0.11);
+  --muted:    rgba(236, 231, 221, 0.50);
+}
+
+/* Transiciones de color suaves al cambiar de tema (~0.6s) */
+body,
+.navbar-container,
+.nav-menu,
+.nav-item,
+.section-tag,
+.section-title,
+.section-text,
+.property-card,
+.property-info,
+.prop-title,
+.prop-location,
+.prop-specs,
+.no-results,
+.advisor-img-wrapper,
+.advisor-name,
+.advisor-role,
+.section-testimonials,
+.testimonial-quote,
+.testimonial-author,
+.modal-wrapper,
+.modal-close-btn,
+.form-input,
+.form-textarea,
+.destination-map-card,
+.search-bar-container,
+.filter-label,
+.select-wrapper select {
+  transition-property: background-color, color, border-color;
+  transition-duration: 0.6s;
+  transition-timing-function: ease;
+}
+
+/* Las property-card conservan su transición de hover, añadimos colores */
+.property-card {
+  transition: transform var(--ease), box-shadow var(--ease),
+              background-color 0.6s ease, border-color 0.6s ease;
+}
+
+/* ==========================================================================
+   TEMA NOCHE — overrides de componentes
+   ========================================================================== */
+
+/* Body */
+[data-theme="night"] body {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* Navbar */
+[data-theme="night"] .navbar-container {
+  background: rgba(13, 15, 12, 0.84);
+  border-bottom-color: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28);
+}
+
+[data-theme="night"] .navbar.scrolled .navbar-container {
+  background: rgba(13, 15, 12, 0.96);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.38);
+}
+
+[data-theme="night"] .nav-top-note {
+  color: rgba(236, 231, 221, 0.65);
+}
+
+[data-theme="night"] .nav-top-note::after {
+  background: rgba(236, 231, 221, 0.28);
+}
+
+[data-theme="night"] .logo-main {
+  color: var(--ink);
+}
+
+[data-theme="night"] .logo-sub {
+  color: rgba(236, 231, 221, 0.50);
+}
+
+[data-theme="night"] .nav-menu {
+  background: rgba(13, 15, 12, 0.40);
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="night"] .nav-item {
+  color: rgba(236, 231, 221, 0.78);
+}
+
+[data-theme="night"] .nav-item:hover {
+  color: var(--ink);
+}
+
+[data-theme="night"] .nav-cta .btn {
+  color: var(--ink);
+  background: rgba(13, 15, 12, 0.30);
+  border-color: rgba(183, 161, 113, 0.42);
+}
+
+[data-theme="night"] .nav-cta .btn:hover {
+  color: #0d0f0c;
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+[data-theme="night"] .language-switch {
+  color: rgba(236, 231, 221, 0.32);
+}
+
+[data-theme="night"] .language-btn {
+  color: rgba(236, 231, 221, 0.42);
+}
+
+[data-theme="night"] .language-btn:hover,
+[data-theme="night"] .language-btn.active {
+  color: var(--ink);
+}
+
+[data-theme="night"] .mobile-menu-toggle .bar {
+  background: var(--ink);
+}
+
+/* Menú móvil (pantalla completa) en modo noche */
+[data-theme="night"] .nav-menu.active,
+[data-theme="night"] .nav-menu[class*="active"] {
+  background: rgba(13, 15, 12, 0.97);
+}
+
+/* Search bar */
+[data-theme="night"] .search-bar-container {
+  background: rgba(18, 20, 17, 0.98);
+  border-color: rgba(255, 255, 255, 0.11);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.32);
+}
+
+[data-theme="night"] .filter-group {
+  border-right-color: rgba(255, 255, 255, 0.10);
+  border-bottom-color: rgba(255, 255, 255, 0.10);
+}
+
+[data-theme="night"] .filter-label {
+  color: rgba(236, 231, 221, 0.46);
+}
+
+[data-theme="night"] .select-wrapper select {
+  color: var(--ink);
+}
+
+[data-theme="night"] .select-wrapper::after {
+  border-right-color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+/* Secciones */
+[data-theme="night"] .section-properties,
+[data-theme="night"] .section-difference,
+[data-theme="night"] .section-destinations,
+[data-theme="night"] .section-advisors {
+  background: var(--paper);
+}
+
+[data-theme="night"] .section-tag {
+  color: rgba(183, 161, 113, 0.68);
+}
+
+/* Property cards */
+[data-theme="night"] .property-card {
+  background: #181a17;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+}
+
+[data-theme="night"] .property-card:hover {
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.42);
+}
+
+[data-theme="night"] .prop-specs {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="night"] .no-results {
+  background: #181a17;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Destination map card */
+[data-theme="night"] .destination-map-card {
+  background: #1c1e1a;
+}
+
+[data-theme="night"] .map-marker {
+  border-color: rgba(236, 231, 221, 0.7);
+  background: var(--gold);
+}
+
+[data-theme="night"] .map-marker::before {
+  color: var(--ink);
+}
+
+/* Advisors */
+[data-theme="night"] .advisor-img-wrapper {
+  background: #252723;
+}
+
+[data-theme="night"] .advisor-role {
+  color: rgba(183, 161, 113, 0.65);
+}
+
+[data-theme="night"] .social-icon {
+  color: rgba(236, 231, 221, 0.55);
+}
+
+[data-theme="night"] .social-icon:hover {
+  color: var(--gold);
+}
+
+/* Testimonials */
+[data-theme="night"] .section-testimonials {
+  background: linear-gradient(90deg, #141510 0%, #1a1c17 58%, #12140f 100%);
+}
+
+/* Cambia también el fondo decorativo de la sección testimonials */
+[data-theme="night"] .section-testimonials::after {
+  background: url("assets/assets-noche/mrb_nch.png") center / cover;
+}
+
+[data-theme="night"] .dot-btn {
+  background: rgba(183, 161, 113, 0.30);
+}
+
+[data-theme="night"] .dot-btn.active {
+  background: var(--gold);
+}
+
+[data-theme="night"] .testimonial-author::before {
+  background: rgba(236, 231, 221, 0.45);
+}
+
+/* Pre-footer: ya tiene fondo oscuro, ajuste sutil */
+[data-theme="night"] .section-pre-footer {
+  background: linear-gradient(90deg, #0a0c0a 0%, #161814 100%);
+}
+
+/* Footer: ya es oscuro, refinamos colores de texto */
+[data-theme="night"] .footer {
+  background: #0a0c09;
+}
+
+[data-theme="night"] .footer-bottom-container {
+  border-top-color: rgba(255, 255, 255, 0.07);
+}
+
+/* Modal */
+[data-theme="night"] .modal-wrapper {
+  background: #131512;
+}
+
+[data-theme="night"] .modal-close-btn {
+  background: rgba(20, 22, 19, 0.96);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--ink);
+}
+
+[data-theme="night"] .modal-specs-row {
+  border-block-color: rgba(255, 255, 255, 0.10);
+}
+
+[data-theme="night"] .form-input,
+[data-theme="night"] .form-textarea {
+  background: #1a1c19;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--ink);
+}
+
+[data-theme="night"] .form-input::placeholder,
+[data-theme="night"] .form-textarea::placeholder {
+  color: rgba(236, 231, 221, 0.35);
+}
+
+/* Botones generales en modo noche */
+[data-theme="night"] .btn,
+[data-theme="night"] .btn-search {
+  background: var(--olive);
+}
+
+[data-theme="night"] .btn-outline {
+  background: rgba(75, 74, 47, 0.35);
+  border-color: rgba(183, 161, 113, 0.55);
+  color: var(--ink);
+}
+
+[data-theme="night"] .btn-outline:hover {
+  background: var(--olive);
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+/* Toast: ya es oscuro, solo afinamos */
+[data-theme="night"] .toast {
+  background: #1e211c;
+  color: var(--ink);
 }

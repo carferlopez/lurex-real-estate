@@ -1,17 +1,25 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="day">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LUREX Real Estate | Extraordinary Luxury Homes</title>
   <meta name="description" content="A boutique real estate agency specializing in the world's most exceptional properties and lifestyle experiences. Marbella, Mallorca, Ibiza, Barcelona.">
-  
+
+  <!-- Restaura el tema guardado antes de que el CSS pinte, evitando un flash de modo incorrecto -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('lurex_theme');
+      if (t === 'night') document.documentElement.setAttribute('data-theme', 'night');
+    })();
+  </script>
+
   <!-- Preconnect to Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Cormorant Garamond for Serif headers, Outfit for modern UI -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
+
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -27,13 +35,40 @@
             <span class="logo-sub">REAL ESTATE</span>
           </div>
         </a>
-        
+
         <div class="nav-cta">
           <div class="language-switch" role="group" aria-label="Seleccionar idioma">
             <button type="button" class="language-btn active" data-lang="es" aria-pressed="true">ES</button>
             <span aria-hidden="true">|</span>
             <button type="button" class="language-btn" data-lang="en" aria-pressed="false">EN</button>
           </div>
+
+          <!-- Toggle día / noche -->
+          <button class="theme-toggle" id="theme-toggle" type="button"
+                  aria-pressed="false" aria-label="Activar modo noche">
+            <svg class="toggle-icon icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <span class="toggle-track" aria-hidden="true">
+              <span class="toggle-knob"></span>
+            </span>
+            <svg class="toggle-icon icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+
           <button class="btn btn-outline" id="open-viewing-btn">BOOK A VIEWING</button>
           <!-- Mobile Menu Trigger -->
           <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle Menu" aria-expanded="false">
@@ -60,10 +95,16 @@
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-bg">
-      <img src="assets/hero_villa.png" alt="Luxury Villa Marbella Sunset" class="hero-image" fetchpriority="high">
+      <!-- Crossfade día/noche: capa día encima por defecto -->
+      <div class="scene-img-wrap">
+        <img src="assets/assets-dia/villa_dia.png" alt="Luxury Villa Marbella Sunset"
+             class="scene-layer scene-day" fetchpriority="high" onerror="this.style.opacity='0'">
+        <img src="assets/assets-noche/villa_nch.png" alt="Luxury Villa Marbella Night"
+             class="scene-layer scene-night" loading="lazy" onerror="this.style.opacity='0'">
+      </div>
       <div class="hero-overlay"></div>
     </div>
-    
+
     <div class="hero-content-wrapper">
       <div class="hero-content">
         <h1 class="hero-title">Extraordinary Homes, Curated with Precision</h1>
@@ -96,7 +137,7 @@
               </select>
             </div>
           </div>
-          
+
           <div class="filter-group">
             <label for="filter-type" class="filter-label">PROPERTY TYPE</label>
             <div class="select-wrapper">
@@ -108,7 +149,7 @@
               </select>
             </div>
           </div>
-          
+
           <div class="filter-group">
             <label for="filter-price" class="filter-label">PRICE RANGE</label>
             <div class="select-wrapper">
@@ -120,7 +161,7 @@
               </select>
             </div>
           </div>
-          
+
           <div class="filter-group">
             <label for="filter-beds" class="filter-label">BEDS & BATHS</label>
             <div class="select-wrapper">
@@ -132,7 +173,7 @@
               </select>
             </div>
           </div>
-          
+
           <button type="submit" class="btn-search">SEARCH PROPERTIES</button>
         </form>
       </div>
@@ -180,10 +221,16 @@
           </svg>
         </a>
       </div>
-      
+
       <div class="split-image-right reveal-on-scroll">
         <div class="image-wrapper shadow-premium">
-          <img src="assets/interior_console.png" alt="Boutique Luxury Interior Design" class="difference-img">
+          <!-- Crossfade día/noche sección Difference -->
+          <div class="scene-img-wrap">
+            <img src="assets/assets-dia/interior_dia.png" alt="Boutique Luxury Interior Design"
+                 class="scene-layer scene-day" loading="lazy" onerror="this.style.opacity='0'">
+            <img src="assets/assets-noche/interior_nch.png" alt="Boutique Luxury Interior Night"
+                 class="scene-layer scene-night" loading="lazy" onerror="this.style.opacity='0'">
+          </div>
         </div>
       </div>
     </div>
@@ -211,7 +258,12 @@
         <!-- Marbella -->
         <div class="destination-card reveal-on-scroll">
           <div class="dest-bg">
-            <img src="assets/dest_marbella.png" alt="Marbella Coastal View" class="dest-img">
+            <div class="scene-img-wrap">
+              <img src="assets/assets-dia/mrb_dia.png" alt="Marbella Coastal View"
+                   class="scene-layer scene-day dest-img" loading="lazy" onerror="this.style.opacity='0'">
+              <img src="assets/assets-noche/mrb_nch.png" alt="Marbella Night View"
+                   class="scene-layer scene-night dest-img" loading="lazy" onerror="this.style.opacity='0'">
+            </div>
             <div class="dest-overlay"></div>
           </div>
           <div class="dest-info">
@@ -230,7 +282,12 @@
         <!-- Mallorca -->
         <div class="destination-card reveal-on-scroll">
           <div class="dest-bg">
-            <img src="assets/dest_mallorca.png" alt="Mallorca Port Andratx" class="dest-img">
+            <div class="scene-img-wrap">
+              <img src="assets/assets-dia/mll_dia.png" alt="Mallorca Port Andratx"
+                   class="scene-layer scene-day dest-img" loading="lazy" onerror="this.style.opacity='0'">
+              <img src="assets/assets-noche/mll_nch.png" alt="Mallorca Night View"
+                   class="scene-layer scene-night dest-img" loading="lazy" onerror="this.style.opacity='0'">
+            </div>
             <div class="dest-overlay"></div>
           </div>
           <div class="dest-info">
@@ -249,7 +306,12 @@
         <!-- Ibiza -->
         <div class="destination-card reveal-on-scroll">
           <div class="dest-bg">
-            <img src="assets/dest_ibiza.png" alt="Ibiza Es Vedra View" class="dest-img">
+            <div class="scene-img-wrap">
+              <img src="assets/assets-dia/ibz_dia.png" alt="Ibiza Es Vedra View"
+                   class="scene-layer scene-day dest-img" loading="lazy" onerror="this.style.opacity='0'">
+              <img src="assets/assets-noche/ibz_nch.png" alt="Ibiza Night View"
+                   class="scene-layer scene-night dest-img" loading="lazy" onerror="this.style.opacity='0'">
+            </div>
             <div class="dest-overlay"></div>
           </div>
           <div class="dest-info">
@@ -268,7 +330,12 @@
         <!-- Barcelona -->
         <div class="destination-card reveal-on-scroll">
           <div class="dest-bg">
-            <img src="assets/dest_barcelona.png" alt="Barcelona Skyline View" class="dest-img">
+            <div class="scene-img-wrap">
+              <img src="assets/assets-dia/bcn_dia.png" alt="Barcelona Skyline View"
+                   class="scene-layer scene-day dest-img" loading="lazy" onerror="this.style.opacity='0'">
+              <img src="assets/assets-noche/bcn_nch.png" alt="Barcelona Night View"
+                   class="scene-layer scene-night dest-img" loading="lazy" onerror="this.style.opacity='0'">
+            </div>
             <div class="dest-overlay"></div>
           </div>
           <div class="dest-info">
@@ -400,8 +467,8 @@
   <!-- Testimonials Section -->
   <section class="section section-testimonials">
     <div class="container text-center">
-      <div class="testimonial-quotes-icon">“</div>
-      
+      <div class="testimonial-quotes-icon">"</div>
+
       <div class="testimonial-slider">
         <!-- Slides -->
         <div class="testimonial-slides-container">
@@ -411,7 +478,7 @@
             </blockquote>
             <cite class="testimonial-author font-accent">ALEXANDRA & MICHAEL T. <span class="author-location">— LONDON, UNITED KINGDOM</span></cite>
           </div>
-          
+
           <div class="testimonial-slide" data-index="1">
             <blockquote class="testimonial-quote">
               The level of boutique service provided by Miguel and his team was outstanding. They negotiated an incredible off-market property in Mallorca for us. Truly professionals.
@@ -440,10 +507,16 @@
   <!-- Pre-footer CTA Section -->
   <section class="section-pre-footer" id="contact">
     <div class="pre-footer-split-left">
-      <img src="assets/hero_villa.png" alt="Luxury Villa Patio at Night" class="pre-footer-img">
+      <!-- Crossfade día/noche para el pre-footer -->
+      <div class="scene-img-wrap">
+        <img src="assets/assets-dia/villa_dia.png" alt="Luxury Villa Patio by Day"
+             class="scene-layer scene-day" loading="lazy" onerror="this.style.opacity='0'">
+        <img src="assets/assets-noche/villa_nch.png" alt="Luxury Villa Patio at Night"
+             class="scene-layer scene-night" loading="lazy" onerror="this.style.opacity='0'">
+      </div>
       <div class="pre-footer-overlay"></div>
     </div>
-    
+
     <div class="pre-footer-split-right">
       <div class="pre-footer-content reveal-on-scroll">
         <h2 class="pre-footer-title">Let's Find Your Extraordinary</h2>
@@ -466,7 +539,7 @@
         </div>
         <p class="footer-copyright">© 2026 LUREX Real Estate. All rights reserved.</p>
       </div>
-      
+
       <!-- Contact Info Column -->
       <div class="footer-col">
         <h4 class="footer-col-title font-accent">CONTACT</h4>
@@ -477,7 +550,7 @@
           Marbella, Spain
         </address>
       </div>
-      
+
       <!-- Navigation Links Column -->
       <nav class="footer-col" aria-label="Footer Navigation">
         <h4 class="footer-col-title font-accent">NAVIGATION</h4>
@@ -490,7 +563,7 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
-      
+
       <!-- Follow Us Column -->
       <div class="footer-col">
         <h4 class="footer-col-title font-accent">FOLLOW US</h4>
@@ -508,7 +581,7 @@
             <path id="seal-text-path" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none"></path>
             <text class="seal-text">
               <textPath href="#seal-text-path" startOffset="0%">
-                EXTRAORDINARY HOMES • CURATED WITH PRECISION • 
+                EXTRAORDINARY HOMES • CURATED WITH PRECISION •
               </textPath>
             </text>
           </svg>
@@ -516,7 +589,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Legal Row -->
     <div class="footer-bottom-container">
       <div class="container footer-bottom-row">
@@ -535,25 +608,30 @@
   <!-- NATIVE DIALOGS -->
 
   <!-- Property Detail Modal -->
-  <!-- Closedby="any" handles clicking the backdrop, close requests (Esc key), and close() dynamically -->
   <dialog id="property-detail-modal" class="premium-modal modal-large" closedby="any" aria-labelledby="modal-prop-title">
     <div class="modal-wrapper">
       <button class="modal-close-btn" aria-label="Cerrar detalles de la propiedad">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
-      
+
       <div class="modal-body-grid">
+        <!-- Crossfade día/noche en el modal -->
         <div class="modal-image-gallery">
-          <img src="" id="modal-prop-img" alt="Property Image" class="modal-gallery-main-img">
+          <div class="scene-img-wrap">
+            <img src="" id="modal-prop-img-day" alt="Property Image"
+                 class="scene-layer scene-day modal-gallery-main-img" onerror="this.style.opacity='0'">
+            <img src="" id="modal-prop-img-night" alt="Property Image"
+                 class="scene-layer scene-night modal-gallery-main-img" onerror="this.style.opacity='0'">
+          </div>
         </div>
-        
+
         <div class="modal-info-panel">
           <div class="modal-header-block">
             <span class="modal-prop-price font-accent" id="modal-prop-price"></span>
             <h2 class="modal-prop-title" id="modal-prop-title"></h2>
             <p class="modal-prop-location" id="modal-prop-location"></p>
           </div>
-          
+
           <div class="modal-specs-row">
             <div class="spec-item">
               <span class="spec-label">BEDS</span>
@@ -568,7 +646,7 @@
               <span class="spec-val" id="modal-prop-size"></span>
             </div>
           </div>
-          
+
           <div class="modal-description-block">
             <h4 class="font-accent block-title">THE RESIDENCE</h4>
             <p class="modal-prop-description" id="modal-prop-description"></p>
@@ -597,27 +675,27 @@
       <button class="modal-close-btn" aria-label="Cerrar reserva">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
-      
+
       <div class="modal-content-centered">
         <div class="logo-container text-center mb-1">
           <span class="logo-main">LUREX</span>
           <span class="logo-sub font-accent">REAL ESTATE</span>
         </div>
-        
+
         <h2 class="modal-title font-serif text-center" id="modal-booking-title">Schedule a Consultation</h2>
         <p class="modal-subtitle text-center">Please fill out the form below. A dedicated advisor will reach out to you within 24 hours.</p>
-        
+
         <form class="booking-form" id="consultation-form">
           <div class="form-field">
             <label for="booking-name" class="form-label">FULL NAME</label>
             <input type="text" id="booking-name" name="name" required placeholder="John Doe" class="form-input">
           </div>
-          
+
           <div class="form-field">
             <label for="booking-email" class="form-label">EMAIL ADDRESS</label>
             <input type="email" id="booking-email" name="email" required placeholder="john@example.com" class="form-input">
           </div>
-          
+
           <div class="form-field">
             <label for="booking-phone" class="form-label">PHONE NUMBER</label>
             <input type="tel" id="booking-phone" name="phone" placeholder="+34 600 000 000" class="form-input">
@@ -636,7 +714,7 @@
               <option value="consultation">General Consultation & Portfolio Review</option>
             </select>
           </div>
-          
+
           <button type="submit" class="btn btn-filled btn-full mt-1">REQUEST APPOINTMENT</button>
         </form>
       </div>

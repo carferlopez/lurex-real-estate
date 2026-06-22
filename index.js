@@ -13,7 +13,7 @@ const propertiesDatabase = [
     beds: 5,
     baths: 5.5,
     size: 620,
-    image: "assets/villa_horizonte.png",
+    imgBase: "hori",
     description: "Villa Horizonte represents the pinnacle of modern architectural expression in Marbella. Sitting majestically overlooking the Mediterranean coastline, this signature residence blends glass, marble, and white concrete into a masterpiece of light and space. Enjoy panoramic sea views from every room, an indoor wellness spa, private gym, infinity pool, and state-of-the-art home automation."
   },
   {
@@ -27,7 +27,7 @@ const propertiesDatabase = [
     beds: 4,
     baths: 4.5,
     size: 540,
-    image: "assets/penthouse_one.png",
+    imgBase: "pnt",
     description: "Suspended between the mountains and the sea, The Penthouse One is a duplex penthouse offering unprecedented luxury inside the gate-secured estate of La Zagaleta. Combining double-height ceilings, a private glass elevator, sweeping entertainment terraces with plunge pool, and materials sourced from the finest Italian design houses. Absolute security, complete privacy."
   },
   {
@@ -41,7 +41,7 @@ const propertiesDatabase = [
     beds: 6,
     baths: 6,
     size: 750,
-    image: "assets/villa_elysium.png",
+    imgBase: "ely",
     description: "Villa Elysium commands a dramatic cliffside position in Port Andratx, Mallorca's most exclusive natural harbor. Designed to capture the changing hues of the sunset, this estate features expansive outdoor entertainment areas, a modern Gaggenau kitchen, separate staff quarters, a heated saltwater infinity pool, and direct access to a private cove below. A true Mediterranean sanctuary."
   },
   {
@@ -55,7 +55,7 @@ const propertiesDatabase = [
     beds: 4,
     baths: 4,
     size: 480,
-    image: "assets/villa_serene.png",
+    imgBase: "serene",
     description: "Villa Serene captures the bohemian-luxe spirit of Ibiza. Located moments from Cala Jondal, this estate balances raw stone elements with smooth white micro-cement. Featuring a stunning palm-fringed garden, yoga deck, professional outdoor kitchen, and private security. Perfect for tranquil escapes and elegant summer gatherings."
   },
   {
@@ -69,7 +69,7 @@ const propertiesDatabase = [
     beds: 3,
     baths: 3,
     size: 310,
-    image: "assets/sky_loft.png",
+    imgBase: "sky",
     description: "An ultra-chic contemporary loft situated on Passeig de Gràcia in the heart of Barcelona. This architectural gem features original Catalan vaulted ceilings combined with industrial steel framing, designer Boffi kitchen, automated smart systems, and a private 80m² rooftop terrace with views of Gaudí's La Pedrera."
   },
   {
@@ -83,7 +83,7 @@ const propertiesDatabase = [
     beds: 5,
     baths: 5,
     size: 520,
-    image: "assets/finca_rustica.png",
+    imgBase: "finca",
     description: "A beautifully restored traditional stone finca nestled in the valleys of Valldemossa, Mallorca. Combining historic 17th-century details with modern luxuries, including a private olive grove, guest cottage, wine cellar, and zero-edge pool overlooking the UNESCO-protected Serra de Tramuntana mountains."
   }
 ];
@@ -578,9 +578,39 @@ function getFilteredProperties() {
 }
 
 /* ==========================================================================
+   TEMA DÍA / NOCHE
+   ========================================================================== */
+function initTheme() {
+  const html = document.documentElement;
+  // El inline script del <head> ya restauró data-theme; aquí solo gestionamos el botón.
+  const btn = document.getElementById("theme-toggle");
+  if (!btn) return;
+
+  function updateToggleState(theme) {
+    const isNight = theme === "night";
+    btn.setAttribute("aria-pressed", String(isNight));
+    btn.setAttribute("aria-label",
+      isNight
+        ? (currentLang === "es" ? "Cambiar a modo día"   : "Switch to day mode")
+        : (currentLang === "es" ? "Cambiar a modo noche" : "Switch to night mode")
+    );
+  }
+
+  updateToggleState(html.getAttribute("data-theme") || "day");
+
+  btn.addEventListener("click", () => {
+    const next = html.getAttribute("data-theme") === "night" ? "day" : "night";
+    html.setAttribute("data-theme", next);
+    localStorage.setItem("lurex_theme", next);
+    updateToggleState(next);
+  });
+}
+
+/* ==========================================================================
    INITIALIZATION & SELECTION
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
+  initTheme();
   initI18n();
   initNavbar();
   initPropertiesGrid();
@@ -687,7 +717,12 @@ function renderProperties(properties) {
 
     card.innerHTML = `
       <div class="property-img-wrapper">
-        <img src="${prop.image}" alt="${prop.title}" class="property-img" loading="lazy">
+        <div class="scene-img-wrap">
+          <img src="assets/assets-dia/${prop.imgBase}_dia.png" alt="${propertyText(prop, "title")}"
+               class="scene-layer scene-day" loading="lazy" onerror="this.style.opacity='0'">
+          <img src="assets/assets-noche/${prop.imgBase}_nch.png" alt="${propertyText(prop, "title")}"
+               class="scene-layer scene-night" loading="lazy" onerror="this.style.opacity='0'">
+        </div>
         <button class="btn-favorite ${isFav ? 'active' : ''}" aria-label="${t("favoriteAria")}" data-fav-id="${prop.id}">
           <svg viewBox="0 0 24 24">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
@@ -853,10 +888,17 @@ let activeProperty = null;
 function openPropertyModal(property) {
   const modal = document.getElementById("property-detail-modal");
   activeProperty = property;
-  
-  // Populate fields
-  document.getElementById("modal-prop-img").src = property.image;
-  document.getElementById("modal-prop-img").alt = propertyText(property, "title");
+
+  // Limpia opacity inline que pudo haber fijado onerror al cargar con src vacío
+  modal.querySelectorAll('.scene-layer').forEach(img => { img.style.opacity = ''; });
+
+  // Populate fields — imágenes día/noche
+
+  const _imgTitle = propertyText(property, "title");
+  document.getElementById("modal-prop-img-day").src   = `assets/assets-dia/${property.imgBase}_dia.png`;
+  document.getElementById("modal-prop-img-day").alt   = _imgTitle;
+  document.getElementById("modal-prop-img-night").src = `assets/assets-noche/${property.imgBase}_nch.png`;
+  document.getElementById("modal-prop-img-night").alt = _imgTitle;
   document.getElementById("modal-prop-title").textContent = propertyText(property, "title");
   document.getElementById("modal-prop-price").textContent = property.priceFormatted;
   document.getElementById("modal-prop-location").textContent = propertyText(property, "locationName");
