@@ -43,6 +43,9 @@
             <button type="button" class="language-btn" data-lang="en" aria-pressed="false">EN</button>
           </div>
 
+          <!-- Indicador de hora junto al toggle -->
+          <span class="theme-clock" id="theme-clock" aria-hidden="true"></span>
+
           <!-- Toggle día / noche -->
           <button class="theme-toggle" id="theme-toggle" type="button"
                   aria-pressed="false" aria-label="Activar modo noche">
@@ -176,6 +179,34 @@
 
           <button type="submit" class="btn-search">SEARCH PROPERTIES</button>
         </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Dos Vidas — eje narrativo del toggle día/noche -->
+  <section class="section section-dos-vidas" id="dos-vidas">
+    <div class="container">
+      <div class="dos-vidas-header reveal-on-scroll">
+        <span class="section-tag font-accent" id="dv-eyebrow">LA EXPERIENCIA LUREX</span>
+        <h2 class="dos-vidas-title" id="dv-title">No vendemos casas.<br>Vendemos las horas que vivirás en ellas.</h2>
+      </div>
+
+      <div class="dos-vidas-columns">
+        <div class="dos-vidas-col dos-vidas-day reveal-on-scroll">
+          <span class="dos-vidas-col-label font-accent" id="dv-day-label">LA HORA DORADA</span>
+          <p class="dos-vidas-col-text" id="dv-day-text">El café en la terraza. El mar entrando por el ventanal. La piedra caliente bajo el sol de mediodía. Así amanece tu casa.</p>
+        </div>
+        <div class="dos-vidas-col dos-vidas-night reveal-on-scroll">
+          <span class="dos-vidas-col-label font-accent" id="dv-night-label">LA HORA AZUL</span>
+          <p class="dos-vidas-col-text" id="dv-night-text">Las luces encendidas desde dentro. La piscina como un espejo negro. El silencio cálido de la madrugada. Así descansa tu casa.</p>
+        </div>
+      </div>
+
+      <div class="dos-vidas-close reveal-on-scroll">
+        <button class="dos-vidas-cta" id="dos-vidas-toggle-btn" type="button"
+                aria-label="Cambiar a modo noche">
+          <span id="dv-close-text">Toca el sol o la luna. Vívelas las dos.</span>
+        </button>
       </div>
     </div>
   </section>
@@ -629,6 +660,7 @@
           <div class="modal-header-block">
             <span class="modal-prop-price font-accent" id="modal-prop-price"></span>
             <h2 class="modal-prop-title" id="modal-prop-title"></h2>
+            <span class="modal-both-hours" id="modal-both-hours"></span>
             <p class="modal-prop-location" id="modal-prop-location"></p>
           </div>
 

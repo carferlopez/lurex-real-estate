@@ -432,6 +432,7 @@ a:hover .icon-arrow,
   font-weight: 500;
   line-height: 0.94;
   letter-spacing: 0;
+  transition: opacity 0.4s ease;
 }
 
 .hero-subtitle {
@@ -441,6 +442,7 @@ a:hover .icon-arrow,
   font-size: 1.02rem;
   font-weight: 400;
   line-height: 1.55;
+  transition: opacity 0.4s ease;
 }
 
 .search-bar-wrapper {
@@ -526,7 +528,6 @@ a:hover .icon-arrow,
 }
 
 .section-properties {
-  padding-top: 118px;
   background: var(--paper);
 }
 
@@ -1567,7 +1568,7 @@ a:hover .icon-arrow,
     padding-block: 44px;
   }
 
-  .section-properties {
+  .section-dos-vidas {
     padding-top: 390px;
   }
 
@@ -2069,4 +2070,219 @@ body,
 [data-theme="night"] .toast {
   background: #1e211c;
   color: var(--ink);
+}
+
+/* ==========================================================================
+   INDICADOR DE HORA (tema clock)
+   ========================================================================== */
+
+.theme-clock {
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.6s ease, opacity 0.3s ease;
+}
+
+@media (max-width: 1180px) {
+  .theme-clock { display: none; }
+}
+
+/* ==========================================================================
+   MICRO-COPY — bothHours en cards y modal
+   ========================================================================== */
+
+.prop-both-hours {
+  display: block;
+  color: var(--muted);
+  font-size: 0.67rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 2px 0 4px;
+}
+
+.modal-both-hours {
+  display: block;
+  color: var(--muted);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+/* ==========================================================================
+   SECCIÓN DOS VIDAS — manifiesto narrativo
+   ========================================================================== */
+
+.section-dos-vidas {
+  padding-top: 118px;
+  padding-bottom: 72px;
+  background: var(--sand);
+  transition: background-color 0.6s ease;
+}
+
+.dos-vidas-header {
+  text-align: center;
+  margin-bottom: 52px;
+}
+
+.dos-vidas-header .section-tag {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.dos-vidas-title {
+  margin: 0 auto;
+  max-width: 920px;
+  font-family: var(--font-serif);
+  font-size: clamp(2.1rem, 3.2vw, 4rem);
+  font-weight: 500;
+  line-height: 1.04;
+  color: var(--ink);
+  transition: color 0.6s ease;
+}
+
+.dos-vidas-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--line);
+  margin-bottom: 60px;
+  transition: border-color 0.6s ease;
+}
+
+.dos-vidas-col {
+  padding: 48px 52px;
+  border: 1px solid transparent;
+  /* Transición de realce cinematic + color de fondo/texto */
+  transition: opacity 0.6s ease, border-color 0.6s ease,
+              box-shadow 0.6s ease, background-color 0.6s ease;
+}
+
+.dos-vidas-col + .dos-vidas-col {
+  border-left: 1px solid var(--line);
+  transition: opacity 0.6s ease, border-color 0.6s ease,
+              box-shadow 0.6s ease, background-color 0.6s ease;
+}
+
+/* Columna activa según el tema: se ilumina con borde dorado */
+[data-theme="day"] .dos-vidas-day,
+[data-theme="night"] .dos-vidas-night {
+  opacity: 1;
+  border-color: var(--gold);
+  box-shadow: inset 0 0 0 1px var(--gold), 0 4px 24px rgba(183, 161, 113, 0.10);
+}
+
+[data-theme="day"] .dos-vidas-night,
+[data-theme="night"] .dos-vidas-day {
+  opacity: 0.36;
+}
+
+.dos-vidas-col-label {
+  display: block;
+  color: var(--gold);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.dos-vidas-col-text {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  line-height: 1.62;
+  max-width: 480px;
+  transition: color 0.6s ease;
+}
+
+.dos-vidas-close {
+  text-align: center;
+}
+
+/* Botón de cierre editorial — acciona el toggle principal */
+.dos-vidas-cta {
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: clamp(1.35rem, 1.8vw, 1.9rem);
+  font-weight: 500;
+  font-style: italic;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.dos-vidas-cta:hover {
+  color: var(--gold);
+}
+
+.dos-vidas-cta:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 8px;
+  border-radius: 2px;
+}
+
+/* Añade DOS VIDAS a la lista de transición de color */
+.section-dos-vidas,
+.dos-vidas-title,
+.dos-vidas-col-text {
+  transition-property: background-color, color;
+  transition-duration: 0.6s;
+  transition-timing-function: ease;
+}
+
+/* La sección necesita su propio background override en noche */
+[data-theme="night"] .section-dos-vidas {
+  background: #111310;
+}
+
+[data-theme="night"] .dos-vidas-columns {
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+[data-theme="night"] .dos-vidas-col + .dos-vidas-col {
+  border-left-color: rgba(255, 255, 255, 0.10);
+}
+
+/* ==========================================================================
+   RESPONSIVE — Dos Vidas
+   ========================================================================== */
+
+@media (max-width: 1180px) {
+  .dos-vidas-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .dos-vidas-col + .dos-vidas-col {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    transition: opacity 0.6s ease, border-color 0.6s ease,
+                box-shadow 0.6s ease, background-color 0.6s ease;
+  }
+
+  [data-theme="night"] .dos-vidas-col + .dos-vidas-col {
+    border-top-color: rgba(255, 255, 255, 0.10);
+  }
+}
+
+@media (max-width: 720px) {
+  .section-dos-vidas {
+    padding-top: 390px; /* espacio para el search bar flotante */
+    padding-bottom: 48px;
+  }
+
+  .dos-vidas-col {
+    padding: 32px 24px;
+  }
+
+  .dos-vidas-col-text {
+    max-width: 100%;
+  }
 }

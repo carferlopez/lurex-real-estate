@@ -131,12 +131,12 @@ const i18n = {
     featuredProperties: "PROPIEDADES DESTACADAS",
     featuredTitle: "Seleccionadas. Excepcionales. Tuyas.",
     viewAllProperties: "VER TODAS LAS PROPIEDADES",
-    differenceTag: "LA DIFERENCIA LUREX",
-    differenceTitle: "Más que propiedades.<br>Creamos estilos de vida.",
-    differenceText: "LUREX Real Estate es una agencia boutique con perspectiva global y trato personal. Representamos solo las mejores propiedades y trabajamos con clientes que valoran la confianza, la discreción y los resultados. Cada detalle importa. Cada vivienda tiene una historia.",
+    differenceTag: "DOS VIDAS, UNA CASA",
+    differenceTitle: "Lo que la luz revela,<br>la noche lo transforma.",
+    differenceText: "Cada propiedad de nuestra cartera está capturada en sus dos horas: el esplendor del mediodía y la intimidad del anochecer. Porque elegir un hogar es elegir cómo quieres sentirte en él a cada hora del día.",
     learnMoreAboutUs: "CONOCER MÁS",
     destinations: "DESTINOS",
-    destinationsTitle: "Lugares icónicos. Vida inspirada.",
+    destinationsTitle: "Lugares que cambian con la luz.",
     exploreAllAreas: "EXPLORAR ZONAS",
     balearicIslands: "Islas Baleares",
     catalonia: "Cataluña",
@@ -206,7 +206,24 @@ const i18n = {
     removed: "Eliminado de favoritos",
     inquirySent: "Consulta enviada correctamente para",
     consultationSent: "Consulta solicitada. Nuestro equipo contactará contigo pronto.",
-    favoriteAria: "Guardar en favoritos"
+    favoriteAria: "Guardar en favoritos",
+    // Claves v2 — concepto DOS VIDAS
+    heroTitleDay: "Cada casa vive dos vidas.",
+    heroTitleNight: "Esta es la otra.",
+    heroSubtitleDay: "Una a plena luz. Otra cuando cae la noche. Toca el sol o la luna y siéntelas las dos antes de cruzar la puerta.",
+    heroSubtitleNight: "El mismo encuadre, otra atmósfera. Así se vive aquí cuando se apaga el día.",
+    clockMidday: "Mediodía",
+    clockNightfall: "Anochecer",
+    dosVidasEyebrow: "LA EXPERIENCIA LUREX",
+    dosVidasTitle: "No vendemos casas.<br>Vendemos las horas que vivirás en ellas.",
+    dosVidasDayLabel: "LA HORA DORADA",
+    dosVidasDayText: "El café en la terraza. El mar entrando por el ventanal. La piedra caliente bajo el sol de mediodía. Así amanece tu casa.",
+    dosVidasNightLabel: "LA HORA AZUL",
+    dosVidasNightText: "Las luces encendidas desde dentro. La piscina como un espejo negro. El silencio cálido de la madrugada. Así descansa tu casa.",
+    dosVidasClose: "Toca el sol o la luna. Vívelas las dos.",
+    dosVidasToggleAriaDay: "Cambiar a modo noche",
+    dosVidasToggleAriaNight: "Cambiar a modo día",
+    bothHours: "Disponible en día y noche"
   },
   en: {
     documentTitle: "LUREX Real Estate | Extraordinary Luxury Homes",
@@ -247,12 +264,12 @@ const i18n = {
     featuredProperties: "FEATURED PROPERTIES",
     featuredTitle: "Handpicked. Exceptional. Yours.",
     viewAllProperties: "VIEW ALL PROPERTIES",
-    differenceTag: "THE LUREX DIFFERENCE",
-    differenceTitle: "More Than Properties.<br>We Curate Lifestyles.",
-    differenceText: "LUREX Real Estate is a boutique agency with a global perspective and a personal approach. We represent only the finest properties and work with discerning clients who value trust, discretion, and results. Every detail matters. Every home has a story.",
+    differenceTag: "TWO LIVES, ONE HOME",
+    differenceTitle: "What the light reveals,<br>the night transforms.",
+    differenceText: "Every property in our portfolio is captured in both its hours: the splendour of midday and the intimacy of nightfall. Because choosing a home means choosing how you want to feel inside it at every hour of the day.",
     learnMoreAboutUs: "LEARN MORE ABOUT US",
     destinations: "DESTINATIONS",
-    destinationsTitle: "Iconic Places. Inspired Living.",
+    destinationsTitle: "Places that change with the light.",
     exploreAllAreas: "EXPLORE ALL AREAS",
     balearicIslands: "Balearic Islands",
     catalonia: "Catalonia",
@@ -322,7 +339,24 @@ const i18n = {
     removed: "Removed from favorites",
     inquirySent: "Inquiry sent successfully for",
     consultationSent: "Consultation requested. Our team will contact you shortly.",
-    favoriteAria: "Toggle favorite"
+    favoriteAria: "Toggle favorite",
+    // v2 keys — TWO LIVES concept
+    heroTitleDay: "Every home lives two lives.",
+    heroTitleNight: "This is the other one.",
+    heroSubtitleDay: "One in full light. One when night falls. Tap the sun or the moon and feel them both before you ever step inside.",
+    heroSubtitleNight: "Same frame, another atmosphere. This is how it feels here when the day goes quiet.",
+    clockMidday: "Midday",
+    clockNightfall: "Nightfall",
+    dosVidasEyebrow: "THE LUREX EXPERIENCE",
+    dosVidasTitle: "We don't sell houses.<br>We sell the hours you'll live inside them.",
+    dosVidasDayLabel: "THE GOLDEN HOUR",
+    dosVidasDayText: "Coffee on the terrace. The sea pouring through the glass. Warm stone under the midday sun. This is how your home wakes up.",
+    dosVidasNightLabel: "THE BLUE HOUR",
+    dosVidasNightText: "Lights glowing from within. The pool a black mirror. The warm hush of late night. This is how your home rests.",
+    dosVidasClose: "Tap the sun or the moon. Live them both.",
+    dosVidasToggleAriaDay: "Switch to night mode",
+    dosVidasToggleAriaNight: "Switch to day mode",
+    bothHours: "Shown by day & night"
   }
 };
 
@@ -433,8 +467,6 @@ function applyStaticTranslations() {
   setText('a[href="#journal"].nav-item', "navJournal");
   setText('a[href="#contact"].nav-item', "navContact");
   setText("#open-viewing-btn", "bookViewing");
-  setText(".hero-title", "heroTitle");
-  setText(".hero-subtitle", "heroSubtitle");
   setText(".hero-actions .btn", "discoverProperties");
   setText('label[for="filter-location"]', "location");
   setText('label[for="filter-type"]', "propertyType");
@@ -535,6 +567,18 @@ function applyStaticTranslations() {
   setOption('#booking-service option[value="sell"]', "sellPremiumListing");
   setOption('#booking-service option[value="consultation"]', "portfolioReview");
   setText("#consultation-form .btn", "requestAppointment");
+  setText('#modal-both-hours', 'bothHours');
+  // Sección Dos Vidas
+  setText('#dv-eyebrow', 'dosVidasEyebrow');
+  setHTML('#dv-title', 'dosVidasTitle');
+  setText('#dv-day-label', 'dosVidasDayLabel');
+  setText('#dv-day-text', 'dosVidasDayText');
+  setText('#dv-night-label', 'dosVidasNightLabel');
+  setText('#dv-night-text', 'dosVidasNightText');
+  setText('#dv-close-text', 'dosVidasClose');
+  // Copy y reloj dependientes del tema activo
+  applyThemeCopy(false);
+  updateThemeClock();
   syncLanguageButtons();
 }
 
@@ -578,6 +622,48 @@ function getFilteredProperties() {
 }
 
 /* ==========================================================================
+   COPY DEPENDIENTE DEL TEMA — hero title/subtitle cambia con día/noche
+   ========================================================================== */
+function applyThemeCopy(animate) {
+  const theme = document.documentElement.getAttribute('data-theme') || 'day';
+  const isNight = theme === 'night';
+  const titleEl = document.querySelector('.hero-title');
+  const subtitleEl = document.querySelector('.hero-subtitle');
+  if (!titleEl || !subtitleEl) return;
+
+  function setHeroCopy() {
+    titleEl.textContent = t(isNight ? 'heroTitleNight' : 'heroTitleDay');
+    subtitleEl.textContent = t(isNight ? 'heroSubtitleNight' : 'heroSubtitleDay');
+  }
+
+  if (animate) {
+    // Fundido de salida; cambia el texto cuando está invisible; fundido de entrada
+    titleEl.style.opacity = '0';
+    subtitleEl.style.opacity = '0';
+    setTimeout(() => {
+      setHeroCopy();
+      titleEl.style.opacity = '';
+      subtitleEl.style.opacity = '';
+    }, 280);
+  } else {
+    setHeroCopy();
+  }
+
+  // Actualiza aria-label del botón Dos Vidas según el tema resultante
+  const dvBtn = document.getElementById('dos-vidas-toggle-btn');
+  if (dvBtn) {
+    dvBtn.setAttribute('aria-label', t(isNight ? 'dosVidasToggleAriaNight' : 'dosVidasToggleAriaDay'));
+  }
+}
+
+function updateThemeClock() {
+  const el = document.getElementById('theme-clock');
+  if (!el) return;
+  const isNight = document.documentElement.getAttribute('data-theme') === 'night';
+  el.textContent = isNight ? `21:05 · ${t('clockNightfall')}` : `12:40 · ${t('clockMidday')}`;
+}
+
+/* ==========================================================================
    TEMA DÍA / NOCHE
    ========================================================================== */
 function initTheme() {
@@ -603,7 +689,15 @@ function initTheme() {
     html.setAttribute("data-theme", next);
     localStorage.setItem("lurex_theme", next);
     updateToggleState(next);
+    applyThemeCopy(true);
+    updateThemeClock();
   });
+
+  // Botón de la sección Dos Vidas — delega al toggle principal sin duplicar lógica
+  const dvBtn = document.getElementById('dos-vidas-toggle-btn');
+  if (dvBtn) {
+    dvBtn.addEventListener('click', () => btn.click());
+  }
 }
 
 /* ==========================================================================
@@ -734,6 +828,7 @@ function renderProperties(properties) {
           <h3 class="prop-title">${propertyText(prop, "title")}</h3>
           <span class="prop-price">${prop.priceFormatted}</span>
         </div>
+        <span class="prop-both-hours">${t('bothHours')}</span>
         <p class="prop-location">${propertyText(prop, "locationName")}</p>
         <div class="prop-specs">
           <div class="spec-icon-group">
