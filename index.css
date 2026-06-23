@@ -431,19 +431,20 @@ a:hover .icon-arrow,
 
 /* Toggle de día/noche en el hero — sobreescribe el color del navbar (oscuro sobre claro)
    para que sea visible sobre el overlay oscuro de la imagen del hero */
-.hero-theme-toggle {
+/* Doble clase para ganar especificidad (0,0,2,0) sobre .theme-toggle (0,0,1,0) */
+.hero-theme-toggle.theme-toggle {
   color: rgba(255, 255, 255, 0.72);
 }
 
-.hero-theme-toggle:hover {
+.hero-theme-toggle.theme-toggle:hover {
   color: var(--white);
 }
 
-[data-theme="night"] .hero-theme-toggle {
+[data-theme="night"] .hero-theme-toggle.theme-toggle {
   color: rgba(255, 255, 255, 0.72);
 }
 
-[data-theme="night"] .hero-theme-toggle:hover {
+[data-theme="night"] .hero-theme-toggle.theme-toggle:hover {
   color: var(--white);
 }
 
