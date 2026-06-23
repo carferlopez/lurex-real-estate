@@ -455,6 +455,27 @@ a:hover .icon-arrow,
   background: rgba(183, 161, 113, 0.28);
 }
 
+/* Iconos siempre visibles en el hero — anulan la opacidad reducida del toggle del navbar */
+.hero-theme-toggle .icon-sun,
+.hero-theme-toggle .icon-moon {
+  opacity: 0.75;
+}
+
+.hero-theme-toggle:hover .icon-sun,
+.hero-theme-toggle:hover .icon-moon {
+  opacity: 1;
+}
+
+[data-theme="night"] .hero-theme-toggle .icon-sun,
+[data-theme="night"] .hero-theme-toggle .icon-moon {
+  opacity: 0.75;
+}
+
+[data-theme="night"] .hero-theme-toggle:hover .icon-sun,
+[data-theme="night"] .hero-theme-toggle:hover .icon-moon {
+  opacity: 1;
+}
+
 .hero-title {
   margin: 0 0 22px;
   max-width: 690px;
