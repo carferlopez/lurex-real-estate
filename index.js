@@ -477,10 +477,6 @@ function applyStaticTranslations() {
   setText('a[href="#contact"].nav-item', "navContact");
   setText("#open-viewing-btn", "bookViewing");
   setText('#hero-try-label', 'heroPruebaLabel');
-  const heroDayText = document.getElementById('hero-day-text');
-  if (heroDayText) heroDayText.textContent = t('dosVidasDayLabel');
-  const heroNightText = document.getElementById('hero-night-text');
-  if (heroNightText) heroNightText.textContent = t('dosVidasNightLabel');
   setText('label[for="filter-location"]', "location");
   setText('label[for="filter-type"]', "propertyType");
   setText('label[for="filter-price"]', "priceRange");
@@ -649,11 +645,15 @@ function applyThemeCopy() {
 
   const isNight = document.documentElement.getAttribute('data-theme') === 'night';
 
-  // Actualiza aria-pressed de los botones de hora del hero
-  const heroBtnDay = document.getElementById('hero-btn-day');
-  const heroBtnNight = document.getElementById('hero-btn-night');
-  if (heroBtnDay) heroBtnDay.setAttribute('aria-pressed', String(!isNight));
-  if (heroBtnNight) heroBtnNight.setAttribute('aria-pressed', String(isNight));
+  // Actualiza aria-label del hero toggle según el tema activo
+  const heroToggle = document.getElementById('hero-theme-toggle');
+  if (heroToggle) {
+    heroToggle.setAttribute('aria-label',
+      isNight
+        ? (currentLang === 'es' ? 'Cambiar a modo día'   : 'Switch to day mode')
+        : (currentLang === 'es' ? 'Cambiar a modo noche' : 'Switch to night mode')
+    );
+  }
 
   // Actualiza aria-label del botón Dos Vidas según el tema activo
   const dvBtn = document.getElementById('dos-vidas-toggle-btn');
@@ -707,19 +707,9 @@ function initTheme() {
   const dvBtn = document.getElementById('dos-vidas-toggle-btn');
   if (dvBtn) dvBtn.addEventListener('click', () => btn.click());
 
-  // Botones de hora del hero — activan el modo concreto
-  const heroBtnDay = document.getElementById('hero-btn-day');
-  if (heroBtnDay) {
-    heroBtnDay.addEventListener('click', () => {
-      if (html.getAttribute('data-theme') !== 'day') btn.click();
-    });
-  }
-  const heroBtnNight = document.getElementById('hero-btn-night');
-  if (heroBtnNight) {
-    heroBtnNight.addEventListener('click', () => {
-      if (html.getAttribute('data-theme') !== 'night') btn.click();
-    });
-  }
+  // Toggle del hero — delega en el botón del navbar
+  const heroToggle = document.getElementById('hero-theme-toggle');
+  if (heroToggle) heroToggle.addEventListener('click', () => btn.click());
 
   // Botones de hora directa de Dos Vidas — activan el modo concreto sin toggle
   const dvBtnDay = document.getElementById('dv-btn-day');

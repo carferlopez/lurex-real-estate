@@ -429,57 +429,30 @@ a:hover .icon-arrow,
   color: rgba(255, 255, 255, 0.62);
 }
 
-.hero-hour-btns {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.btn-hero-hour {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 13px 22px;
-  border: 1px solid rgba(255, 255, 255, 0.32);
-  background: rgba(255, 255, 255, 0.08);
+/* Toggle de día/noche en el hero — sobreescribe el color del navbar (oscuro sobre claro)
+   para que sea visible sobre el overlay oscuro de la imagen del hero */
+.hero-theme-toggle {
   color: rgba(255, 255, 255, 0.72);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
-.btn-hero-hour:hover {
-  background: rgba(183, 161, 113, 0.22);
-  border-color: rgba(183, 161, 113, 0.65);
+.hero-theme-toggle:hover {
   color: var(--white);
 }
 
-.btn-hero-hour[aria-pressed="true"] {
-  background: rgba(183, 161, 113, 0.18);
-  border-color: var(--gold);
+[data-theme="night"] .hero-theme-toggle {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+[data-theme="night"] .hero-theme-toggle:hover {
   color: var(--white);
 }
 
-.btn-hero-hour:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 3px;
+.hero-theme-toggle .toggle-track {
+  background: rgba(255, 255, 255, 0.18);
 }
 
-.btn-hero-hour svg {
-  flex-shrink: 0;
-}
-
-@media (max-width: 480px) {
-  .hero-hour-btns {
-    flex-direction: column;
-  }
-  .btn-hero-hour {
-    justify-content: center;
-  }
+[data-theme="night"] .hero-theme-toggle .toggle-track {
+  background: rgba(183, 161, 113, 0.28);
 }
 
 .hero-title {
